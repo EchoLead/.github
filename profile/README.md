@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/echolead-banner.png" alt="EchoLead banner" width="720" />
+  <img src="./el.png" alt="EchoLead banner" width="720" />
 </p>
 
 # EchoLead
