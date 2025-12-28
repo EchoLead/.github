@@ -152,6 +152,10 @@ A EchoLead é um software proprietário. É proibida a cópia, modificação, di
 
 Para dúvidas sobre licenciamento, uso comercial ou acesso à plataforma, entre em contato com os mantenedores deste repositório.
 
+## Componentes de terceiros
+A EchoLead integra e opera componentes open-source de terceiros (ex.: Chatwoot) sob suas respectivas licenças.  
+Esses componentes **não** são cobertos por esta licença Proprietária. Consulte os repositórios oficiais para os termos aplicáveis.
+
 ---
 
 
