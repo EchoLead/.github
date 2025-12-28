@@ -145,15 +145,14 @@ Dado operacional e dado analítico coexistem:
 
 ---
 
-## License
-Defina aqui (ex.: Proprietary / MIT / Apache-2.0).
+## Licença
+Proprietário — Todos os direitos reservados.
+
+A EchoLead é um software proprietário. É proibida a cópia, modificação, distribuição ou uso deste software, por qualquer meio, sem autorização prévia e por escrito da EchoLead.
+
+Para dúvidas sobre licenciamento, uso comercial ou acesso à plataforma, entre em contato com os mantenedores deste repositório.
 
 ---
-
-## Contato
-Se quiser contribuir, sugerir features ou discutir integrações (Chatwoot/CRMs), abra uma issue ou entre em contato pelo maintainer do repositório.
-
-
 
 
 
