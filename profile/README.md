@@ -2,8 +2,6 @@
   <img src="./el.png" alt="EchoLead banner" width="720" />
 </p>
 
-# EchoLead
-
 **EchoLead** é uma plataforma **event-driven, multi-tenant e analytics-first** para **captura, enriquecimento e ativação de leads** — conectando **Landing Pages + Chat (Chatwoot) + Console + Integrações (CRM)** em um fluxo único, auditável e preparado para escala.
 
 O foco é resolver o “buraco” entre **marketing → conversa → conversão → CRM**, garantindo que **cada lead chegue com contexto completo**, com **rastreabilidade ponta-a-ponta** e dados consistentes para operação e análise.
