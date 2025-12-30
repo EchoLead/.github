@@ -2,162 +2,149 @@
   <img src="./el.png" alt="EchoLead banner" width="720" />
 </p>
 
-**EchoLead** é uma plataforma **event-driven, multi-tenant e analytics-first** para **captura, enriquecimento e ativação de leads** — conectando **Landing Pages + Chat (Chatwoot) + Console + Integrações (CRM)** em um fluxo único, auditável e preparado para escala.
+# EchoLead
 
-O foco é resolver o “buraco” entre **marketing → conversa → conversão → CRM**, garantindo que **cada lead chegue com contexto completo**, com **rastreabilidade ponta-a-ponta** e dados consistentes para operação e análise.
+**EchoLead** is an **event-driven, multi-tenant, and analytics-first** platform for **lead capture, enrichment, and activation** — connecting **Landing Pages + Chat (Chatwoot) + Console + Integrations (CRM)** in a single, auditable flow prepared for scale.
 
----
+The focus is to solve the gap between **marketing → conversation → conversion → CRM**, ensuring that **every lead arrives with complete context**, with **end-to-end traceability** and consistent data for operations and analysis.
 
-## Por que a EchoLead existe
+## Why EchoLead exists
 
-Times de marketing e vendas costumam sofrer com:
+Marketing and sales teams typically struggle with:
 
-- **Perda de UTMs / gclid / fbclid** entre páginas, redirecionamentos e início de chat.
-- **Conversas sem contexto** (origem, campanha, landing, referrer, dispositivo), gerando atendimento “cego”.
-- **Dado fragmentado**: GA4/Pixel dizem uma coisa, CRM outra, chat outra.
-- **Integrações frágeis**: duplicidade de leads, sync que falha, falta de idempotência.
-- **Dificuldade de auditoria**: “de onde veio esse lead?”, “qual campanha gerou?”, “por que foi roteado pra X?”.
-- **Visão operacional ruim**: sem funil real, sem health checks e sem replay.
+- **Loss of UTMs / gclid / fbclid** between pages, redirects, and chat initiation.
+- **Conversations without context** (origin, campaign, landing, referrer, device), resulting in "blind" service.
+- **Fragmented data**: GA4/Pixel says one thing, CRM another, chat another.
+- **Fragile integrations**: lead duplication, sync failures, lack of idempotency.
+- **Difficulty with auditing**: "where did this lead come from?", "which campaign generated it?", "why was it routed to X?".
+- **Poor operational visibility**: no real funnel, no health checks, and no replay.
 
-A EchoLead nasce para **centralizar a inteligência do lead**: captura, persiste, enriquece, aplica regras e sincroniza com os destinos (Chat, CRM, Data Warehouse), mantendo **histórico imutável** para auditoria e reprocessamento.
+EchoLead was born to **centralize lead intelligence**: capture, persist, enrich, apply rules, and sync with destinations (Chat, CRM, Data Warehouse), maintaining an **immutable history** for auditing and reprocessing.
 
----
+## What EchoLead solves (in practice)
 
-## O que a EchoLead soluciona (na prática)
+### 1) Complete lead context (from the first click)
 
-### 1) Contexto completo do lead (desde o primeiro clique)
-- Persistência de **tracking_id** e parâmetros (**UTM, gclid, fbclid, referrer, page_url**).
-- Continuidade de contexto entre **landing → navegação → chat → conversão**.
-- Metadados prontos para automações (roteamento, scoring, segmentação).
+- Persistence of **tracking_id** and parameters (**UTM, gclid, fbclid, referrer, page_url**).
+- Context continuity between **landing → navigation → chat → conversion**.
+- Metadata ready for automations (routing, scoring, segmentation).
 
-### 2) Chat com inteligência (Chatwoot)
-- Widget de chat recebe o lead já identificado e com contexto.
-- Possibilita:
-  - Inbox por tenant / cliente
-  - labels/tags automáticas
-  - roteamento baseado em regras
-  - histórico consistente (sem “lead perdido”)
+### 2) Chat with intelligence (Chatwoot)
 
-### 3) Data pipeline robusto e auditável
-- Arquitetura **event-driven** com **fila/mensageria**.
-- Armazenamento de **eventos brutos e enriquecidos**.
-- **Replay** e **auditoria** por histórico imutável (reprocessar regras sem perder o original).
+- Chat widget receives the lead already identified and with context.
+- Enables:
+    - Inbox per tenant / client
+    - Automatic labels/tags
+    - Rule-based routing
+    - Consistent history (no "lost lead")
 
-### 4) Console operacional (control plane)
-- KPIs e funil por tenant: volume, origem, campanhas, conversão, SLA, status de integrações.
-- Diagnóstico: health, filas, erros, eventos “presos”.
-- Ações: replay de eventos, re-sync, inspeção de lead/conversa.
+### 3) Robust and auditable data pipeline
 
-### 5) Sincronização confiável com CRM
-- Sync **idempotente** (evita duplicidade).
-- Propaga **origem/campanha/conversa** para o CRM.
-- Tratamento de falhas com retry e rastreabilidade.
+- **Event-driven** architecture with **queue/messaging**.
+- Storage of **raw and enriched events**.
+- **Replay** and **audit** through immutable history (reprocess rules without losing the original).
 
----
+### 4) Operational console (control plane)
 
-## Para quem é
+- KPIs and funnel per tenant: volume, origin, campaigns, conversion, SLA, integration status.
+- Diagnostics: health, queues, errors, "stuck" events.
+- Actions: event replay, re-sync, lead/conversation inspection.
 
-- **Agências** e operações multi-cliente que precisam padronizar tracking e entrega de leads.
-- **SaaS / produtos** com múltiplos tenants, cada um com suas landings e canais.
-- Times de **growth + SDR/closer** que precisam de contexto no atendimento e dados confiáveis no CRM.
-- Operações que querem um **“single source of truth”** do lead (com auditoria e replay).
+### 5) Reliable CRM synchronization
 
----
+- **Idempotent** sync (avoids duplication).
+- Propagates **origin/campaign/conversation** to CRM.
+- Failure handling with retry and traceability.
 
-## Conceitos-chave
+## Who it's for
+
+- **Agencies** and multi-client operations that need to standardize tracking and lead delivery.
+- **SaaS / products** with multiple tenants, each with their own landings and channels.
+- **Growth + SDR/closer** teams that need context in service and reliable data in CRM.
+- Operations that want a **"single source of truth"** for leads (with audit and replay).
+
+## Key concepts
 
 ### Multi-tenant (host-based)
-A EchoLead foi desenhada para operar com **múltiplos tenants** de forma isolada, com:
-- Identificação por **domínio/host** (ex.: `tenant-a.landing...`, `tenant-a.api...`)
-- **Row-level tenancy** no banco (`tenant_id`)
-- Autenticação via **JWT** com contexto do tenant
+
+EchoLead was designed to operate with **multiple tenants** in isolation, with:
+
+- Identification by **domain/host** (e.g., `tenant-a.landing...`, `tenant-a.api...`)
+- **Row-level tenancy** in the database (`tenant_id`)
+- Authentication via **JWT** with tenant context
 
 ### Analytics-first
-Dado operacional e dado analítico coexistem:
-- **PostgreSQL** para dados operacionais e configurações.
-- **ClickHouse** para analytics e exploração de eventos em escala.
-- Estrutura preparada para “Datalake histórico” (raw/enriched).
 
-### Event-driven e observável
-- Ingestão → Enriquecimento → Regras → Saídas como pipeline de eventos.
-- **Logs/metrics/tracing** para visão operacional real.
-- Eventos imutáveis como fonte de verdade.
+Operational data and analytical data coexist:
 
----
+- **PostgreSQL** for operational data and configurations.
+- **ClickHouse** for analytics and exploration of events at scale.
+- Structure prepared for "historical Datalake" (raw/enriched).
 
-## Macro arquitetura (alto nível)
+### Event-driven and observable
+
+- Ingestion → Enrichment → Rules → Outputs as event pipeline.
+- **Logs/metrics/tracing** for real operational visibility.
+- Immutable events as source of truth.
+
+## Macro architecture (high level)
 
 - **Tracking Script / Widget**
-  - Captura parâmetros e gera `tracking_id`
-  - Envia eventos (page_view, chat_start, form_submit, etc.)
-
+    - Captures parameters and generates `tracking_id`
+    - Sends events (page_view, chat_start, form_submit, etc.)
 - **API Gateway**
-  - Autenticação, rate limit, roteamento e tenancy
-
+    - Authentication, rate limit, routing, and tenancy
 - **Core Services**
-  - **Ingestion**: recebe eventos
-  - **Processing**: enriquece (utm, origem, device, fingerprint, etc.)
-  - **Rules/Orchestration**: aplica regras e decide saídas
-  - **Output**: envia para Chatwoot/CRM/Datalake
-
+    - **Ingestion**: receives events
+    - **Processing**: enriches (utm, origin, device, fingerprint, etc.)
+    - **Rules/Orchestration**: applies rules and decides outputs
+    - **Output**: sends to Chatwoot/CRM/Datalake
 - **Storage**
-  - PostgreSQL (operacional)
-  - ClickHouse (analytics)
-  - Replay/audit via eventos imutáveis
+    - PostgreSQL (operational)
+    - ClickHouse (analytics)
+    - Replay/audit via immutable events
+- **Integrations**
+    - Chatwoot (conversation and service)
+    - CRM Sync (HubSpot/Pipedrive/Salesforce/etc. — via connectors)
 
-- **Integrações**
-  - Chatwoot (conversa e atendimento)
-  - CRM Sync (HubSpot/Pipedrive/Salesforce/etc. — via conectores)
+## Main expected results
 
----
+- **+ Conversion**: service with context, less friction, more closing.
+- **- Loss of tracking**: UTMs and click_ids correctly persisted.
+- **- Rework**: less "lead hunting", less "which campaign was it?".
+- **+ Governance**: audit and replay of events for correction and evolution.
+- **+ Scale**: multi-tenant and event-driven pipeline ready to grow.
 
-## Principais resultados esperados
+## Project status (overview)
 
-- **+ Conversão**: atendimento com contexto, menos atrito, mais fechamento.
-- **- Perda de tracking**: UTMs e click_ids persistidos corretamente.
-- **- Retrabalho**: menos “caça ao lead”, menos “qual campanha foi?”.
-- **+ Governança**: auditoria e replay de eventos para correção e evolução.
-- **+ Escala**: multi-tenant e pipeline event-driven pronto para crescer.
+- Structure designed for "prod-like" environment even in dev:
+    - Domains per tenant via host-based routing (e.g., Traefik)
+    - Shared Chatwoot with isolation per inbox/tenant
+    - API with tenancy by domain + JWT
+- Typical next steps:
+    - Consolidate tracking script + parameter persistence
+    - Event pipeline (ingest/process/output) with queue
+    - Console (KPIs + health + replay)
+    - Idempotent CRM Sync
 
----
+## Quick glossary
 
-## Status do projeto (visão geral)
+- **Tenant**: an isolated client/account (e.g., "client A", "client B").
+- **tracking_id**: persistent identifier of the visitor/lead throughout the journey.
+- **UTM/gclid/fbclid**: campaign and attribution parameters.
+- **Replay**: reprocess historical events to correct/enrich again.
+- **Idempotency**: ensure that repeated sync/actions don't create duplicates.
 
-- Estrutura pensada para ambiente “prod-like” mesmo em dev:
-  - Domínios por tenant via host-based routing (ex.: Traefik)
-  - Chatwoot compartilhado com isolamento por inbox/tenant
-  - API com tenancy por domínio + JWT
-- Próximos passos típicos:
-  - Consolidar tracking script + persistência de parâmetros
-  - Pipeline de eventos (ingest/process/output) com fila
-  - Console (KPIs + health + replay)
-  - CRM Sync idempotente
+## License
 
----
+Proprietary — All rights reserved.
 
-## Glossário rápido
+EchoLead is proprietary software. Copying, modifying, distributing, or using this software, by any means, without prior written authorization from EchoLead is prohibited.
 
-- **Tenant**: um cliente/conta isolada (ex.: “cliente A”, “cliente B”).
-- **tracking_id**: identificador persistente do visitante/lead ao longo da jornada.
-- **UTM/gclid/fbclid**: parâmetros de campanha e atribuição.
-- **Replay**: reprocessar eventos históricos para corrigir/enriquecer novamente.
-- **Idempotência**: garantir que sync/ações repetidas não criem duplicatas.
+For questions about licensing, commercial use, or platform access, contact the maintainers of this repository.
 
----
+### Third-party components
 
-## Licença
-Proprietário — Todos os direitos reservados.
+EchoLead integrates and operates third-party open-source components (e.g., Chatwoot) under their respective licenses.
 
-A EchoLead é um software proprietário. É proibida a cópia, modificação, distribuição ou uso deste software, por qualquer meio, sem autorização prévia e por escrito da EchoLead.
-
-Para dúvidas sobre licenciamento, uso comercial ou acesso à plataforma, entre em contato com os mantenedores deste repositório.
-
-## Componentes de terceiros
-A EchoLead integra e opera componentes open-source de terceiros (ex.: Chatwoot) sob suas respectivas licenças.  
-Esses componentes **não** são cobertos por esta licença Proprietária. Consulte os repositórios oficiais para os termos aplicáveis.
-
----
-
-
-
-
+These components are **not** covered by this Proprietary license. Consult the official repositories for applicable terms.
